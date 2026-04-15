@@ -30,7 +30,7 @@ body { background: var(--bg); min-height: 100dvh; }
 
 /* === Header === */
 #header {
-  padding: 16px 16px 8px;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 8px;
   display: flex;
   align-items: center;
 }
