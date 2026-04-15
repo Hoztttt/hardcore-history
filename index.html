@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="HH Podcast">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Dan Carlin's Hardcore History - All Episodes">
+  <title>Hardcore History</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header id="header">
+      <div class="header-content">
+        <div class="header-icon">HH</div>
+        <div>
+          <h1>Hardcore History</h1>
+          <p class="header-sub">Dan Carlin</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-tab="episodes">Episodes</button>
+      <button class="tab" data-tab="series">Series</button>
+    </div>
+
+    <!-- Filter row -->
+    <div class="filter-row">
+      <button id="sort-btn" class="filter-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        <span id="sort-label">Newest</span>
+      </button>
+      <button id="filter-btn" class="filter-pill" style="display:none">
+        <span id="filter-label">All Episodes</span>
+      </button>
+    </div>
+
+    <!-- Series Filter Chips -->
+    <div id="filter-bar" class="hidden">
+      <div class="filter-chips" id="filter-chips"></div>
+    </div>
+
+    <!-- Episode List -->
+    <div id="episode-list"></div>
+
+    <!-- Mini Player -->
+    <div id="mini-player" class="hidden">
+      <div class="mini-progress">
+        <div class="mini-progress-bar" id="mini-progress-bar"></div>
+      </div>
+      <div class="mini-content">
+        <div class="mini-info" id="mini-player-tap">
+          <div class="mini-art">
+            <span class="mini-art-text" id="mini-art-text"></span>
+          </div>
+          <div class="mini-meta">
+            <div class="mini-title" id="mini-title"></div>
+            <div class="mini-subtitle">Dan Carlin</div>
+          </div>
+        </div>
+        <div class="mini-controls">
+          <button id="mini-play-btn" class="mini-btn">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" id="mini-play-icon">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full Player -->
+    <div id="full-player" class="hidden">
+      <div class="fp-header">
+        <button id="full-player-close" class="fp-close">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <span class="fp-header-title">Hardcore History</span>
+        <div style="width:40px"></div>
+      </div>
+
+      <div class="fp-body">
+        <!-- Artwork -->
+        <div class="fp-art">
+          <div class="fp-art-inner" id="fp-art-bg">
+            <span class="fp-art-ep" id="fp-art-ep"></span>
+            <span class="fp-art-label">HARDCORE<br>HISTORY</span>
+          </div>
+        </div>
+
+        <!-- Title area -->
+        <div class="fp-info">
+          <div class="fp-title" id="fp-title"></div>
+          <div class="fp-subtitle">Hardcore History &middot; Dan Carlin</div>
+        </div>
+
+        <!-- Seek bar -->
+        <div class="fp-seek">
+          <input type="range" id="seek-bar" min="0" max="1000" value="0" step="1">
+          <div class="fp-times">
+            <span id="current-time">0:00</span>
+            <span id="remaining-time">-0:00</span>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="fp-controls">
+          <button id="speed-btn" class="fp-side-btn">
+            <span id="speed-label">1x</span>
+          </button>
+          <button id="rewind-btn" class="fp-ctrl">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 2l-5 5 5 5"/><path d="M6 7h12a4 4 0 010 8h-1"/>
+            </svg>
+            <span class="skip-num">15</span>
+          </button>
+          <button id="play-btn" class="fp-play-main">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" id="play-icon">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </button>
+          <button id="forward-btn" class="fp-ctrl">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M13 2l5 5-5 5"/><path d="M18 7H6a4 4 0 000 8h1"/>
+            </svg>
+            <span class="skip-num">15</span>
+          </button>
+          <button id="sleep-btn" class="fp-side-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span class="sleep-badge hidden" id="sleep-badge"></span>
+          </button>
+        </div>
+
+        <!-- Prev/Next -->
+        <div class="fp-nav">
+          <button id="prev-btn" class="fp-nav-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+            <span>Previous</span>
+          </button>
+          <button id="next-btn" class="fp-nav-btn">
+            <span>Next</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zm-3.5 6L4 6v12z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sleep Timer Modal -->
+      <div id="sleep-modal" class="hidden">
+        <div class="sleep-overlay" onclick="closeSleepModal()"></div>
+        <div class="sleep-sheet">
+          <div class="sleep-sheet-title">Sleep Timer</div>
+          <button class="sleep-option" onclick="setSleepTimer(5)">5 minutes</button>
+          <button class="sleep-option" onclick="setSleepTimer(15)">15 minutes</button>
+          <button class="sleep-option" onclick="setSleepTimer(30)">30 minutes</button>
+          <button class="sleep-option" onclick="setSleepTimer(45)">45 minutes</button>
+          <button class="sleep-option" onclick="setSleepTimer(60)">1 hour</button>
+          <button class="sleep-option" onclick="setSleepTimer(120)">2 hours</button>
+          <button class="sleep-option" onclick="setSleepTimer(-1)">End of episode</button>
+          <button class="sleep-option sleep-off hidden" id="sleep-off-btn" onclick="setSleepTimer(0)">Turn off timer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="episodes.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
