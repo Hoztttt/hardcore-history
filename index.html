@@ -15,52 +15,96 @@
 </head>
 <body>
   <div id="app">
-    <!-- Header -->
-    <header id="header">
-      <div class="header-content">
-        <div class="header-icon">HH</div>
-        <div>
-          <h1>Hardcore History</h1>
-          <p class="header-sub">Dan Carlin</p>
+
+    <!-- ===== HOME VIEW ===== -->
+    <div id="home-view">
+      <header id="home-header">
+        <h1>Your Library</h1>
+      </header>
+
+      <!-- Continue Listening -->
+      <div id="home-continue" class="hidden">
+        <div class="home-section-title">Continue Listening</div>
+        <div class="home-continue-card" id="home-continue-card" onclick="resumeFromHome()">
+          <div class="hc-art"><span id="hc-ep-num"></span></div>
+          <div class="hc-info">
+            <div class="hc-title" id="hc-title"></div>
+            <div class="hc-sub">Hardcore History</div>
+            <div class="hc-progress-row">
+              <div class="hc-progress"><div class="hc-progress-fill" id="hc-progress-fill"></div></div>
+              <span class="hc-time" id="hc-time"></span>
+            </div>
+          </div>
+          <button class="hc-play-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
         </div>
       </div>
-    </header>
 
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="tab active" data-tab="episodes">Episodes</button>
-      <button class="tab" data-tab="series">Series</button>
+      <!-- Recently Played -->
+      <div id="home-recent" class="hidden">
+        <div class="home-section-title">Recently Played</div>
+        <div id="home-recent-list"></div>
+      </div>
+
+      <!-- Show Card -->
+      <div class="home-section-title" style="margin-top:24px">Shows</div>
+      <div class="home-show-card" onclick="showEpisodeView()">
+        <div class="hs-art">HH</div>
+        <div class="hs-info">
+          <div class="hs-title">Hardcore History</div>
+          <div class="hs-sub">Dan Carlin</div>
+          <div class="hs-count" id="hs-count"></div>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
     </div>
 
-    <!-- Filter row -->
-    <div class="filter-row">
-      <button id="sort-btn" class="filter-pill">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-        <span id="sort-label">Newest</span>
-      </button>
-      <button id="filter-btn" class="filter-pill" style="display:none">
-        <span id="filter-label">All Episodes</span>
-      </button>
+    <!-- ===== SHOW VIEW ===== -->
+    <div id="show-view" class="hidden">
+      <header id="header">
+        <button class="back-btn" onclick="showHomeView()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="header-content">
+          <div class="header-icon">HH</div>
+          <div>
+            <h1>Hardcore History</h1>
+            <p class="header-sub">Dan Carlin</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="episodes">Episodes</button>
+        <button class="tab" data-tab="series">Series</button>
+      </div>
+
+      <div class="filter-row">
+        <button id="sort-btn" class="filter-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          <span id="sort-label">Newest</span>
+        </button>
+        <button id="filter-btn" class="filter-pill" style="display:none">
+          <span id="filter-label">All Episodes</span>
+        </button>
+      </div>
+
+      <div id="filter-bar" class="hidden">
+        <div class="filter-chips" id="filter-chips"></div>
+      </div>
+
+      <div id="episode-list"></div>
     </div>
 
-    <!-- Series Filter Chips -->
-    <div id="filter-bar" class="hidden">
-      <div class="filter-chips" id="filter-chips"></div>
-    </div>
-
-    <!-- Episode List -->
-    <div id="episode-list"></div>
-
-    <!-- Mini Player -->
+    <!-- ===== MINI PLAYER ===== -->
     <div id="mini-player" class="hidden">
       <div class="mini-progress">
         <div class="mini-progress-bar" id="mini-progress-bar"></div>
       </div>
       <div class="mini-content">
         <div class="mini-info" id="mini-player-tap">
-          <div class="mini-art">
-            <span class="mini-art-text" id="mini-art-text"></span>
-          </div>
+          <div class="mini-art"><span class="mini-art-text" id="mini-art-text"></span></div>
           <div class="mini-meta">
             <div class="mini-title" id="mini-title"></div>
             <div class="mini-subtitle">Dan Carlin</div>
@@ -76,86 +120,34 @@
       </div>
     </div>
 
-    <!-- Full Player -->
+    <!-- ===== FULL PLAYER ===== -->
     <div id="full-player" class="hidden">
       <div class="fp-header">
         <button id="full-player-close" class="fp-close">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="6 9 12 15 18 9"/>
-          </svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <span class="fp-header-title">Hardcore History</span>
         <div style="width:40px"></div>
       </div>
-
       <div class="fp-body">
-        <!-- Artwork -->
-        <div class="fp-art">
-          <div class="fp-art-inner" id="fp-art-bg">
-            <span class="fp-art-ep" id="fp-art-ep"></span>
-            <span class="fp-art-label">HARDCORE<br>HISTORY</span>
-          </div>
-        </div>
-
-        <!-- Title area -->
-        <div class="fp-info">
-          <div class="fp-title" id="fp-title"></div>
-          <div class="fp-subtitle">Hardcore History &middot; Dan Carlin</div>
-        </div>
-
-        <!-- Seek bar -->
+        <div class="fp-art"><div class="fp-art-inner" id="fp-art-bg"><span class="fp-art-ep" id="fp-art-ep"></span><span class="fp-art-label">HARDCORE<br>HISTORY</span></div></div>
+        <div class="fp-info"><div class="fp-title" id="fp-title"></div><div class="fp-subtitle">Hardcore History &middot; Dan Carlin</div></div>
         <div class="fp-seek">
           <input type="range" id="seek-bar" min="0" max="1000" value="0" step="1">
-          <div class="fp-times">
-            <span id="current-time">0:00</span>
-            <span id="remaining-time">-0:00</span>
-          </div>
+          <div class="fp-times"><span id="current-time">0:00</span><span id="remaining-time">-0:00</span></div>
         </div>
-
-        <!-- Controls -->
         <div class="fp-controls">
-          <button id="speed-btn" class="fp-side-btn">
-            <span id="speed-label">1x</span>
-          </button>
-          <button id="rewind-btn" class="fp-ctrl">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M11 2l-5 5 5 5"/><path d="M6 7h12a4 4 0 010 8h-1"/>
-            </svg>
-            <span class="skip-num">15</span>
-          </button>
-          <button id="play-btn" class="fp-play-main">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" id="play-icon">
-              <polygon points="5 3 19 12 5 21 5 3"/>
-            </svg>
-          </button>
-          <button id="forward-btn" class="fp-ctrl">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M13 2l5 5-5 5"/><path d="M18 7H6a4 4 0 000 8h1"/>
-            </svg>
-            <span class="skip-num">15</span>
-          </button>
-          <button id="sleep-btn" class="fp-side-btn">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-            </svg>
-            <span class="sleep-badge hidden" id="sleep-badge"></span>
-          </button>
+          <button id="speed-btn" class="fp-side-btn"><span id="speed-label">1x</span></button>
+          <button id="rewind-btn" class="fp-ctrl"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 2l-5 5 5 5"/><path d="M6 7h12a4 4 0 010 8h-1"/></svg><span class="skip-num">15</span></button>
+          <button id="play-btn" class="fp-play-main"><svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" id="play-icon"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>
+          <button id="forward-btn" class="fp-ctrl"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2l5 5-5 5"/><path d="M18 7H6a4 4 0 000 8h1"/></svg><span class="skip-num">15</span></button>
+          <button id="sleep-btn" class="fp-side-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="sleep-badge hidden" id="sleep-badge"></span></button>
         </div>
-
-        <!-- Prev/Next -->
         <div class="fp-nav">
-          <button id="prev-btn" class="fp-nav-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-            <span>Previous</span>
-          </button>
-          <button id="next-btn" class="fp-nav-btn">
-            <span>Next</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zm-3.5 6L4 6v12z"/></svg>
-          </button>
+          <button id="prev-btn" class="fp-nav-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg><span>Previous</span></button>
+          <button id="next-btn" class="fp-nav-btn"><span>Next</span><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zm-3.5 6L4 6v12z"/></svg></button>
         </div>
       </div>
-
-      <!-- Sleep Timer Modal -->
       <div id="sleep-modal" class="hidden">
         <div class="sleep-overlay" onclick="closeSleepModal()"></div>
         <div class="sleep-sheet">

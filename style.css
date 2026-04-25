@@ -28,6 +28,80 @@ body { background: var(--bg); min-height: 100dvh; }
 #app { max-width: 600px; margin: 0 auto; padding-bottom: calc(72px + var(--safe-bottom)); }
 .hidden { display: none !important; }
 
+/* === Home View === */
+#home-header {
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 8px;
+  font-size: 24px; font-weight: 700;
+}
+.home-section-title {
+  font-size: 16px; font-weight: 700; padding: 16px 16px 10px;
+  color: var(--text);
+}
+.home-continue-card {
+  margin: 0 16px; padding: 14px; border-radius: 12px;
+  background: var(--bg-raised); display: flex; align-items: center; gap: 14px;
+  cursor: pointer; transition: background 0.15s;
+}
+.home-continue-card:active { background: var(--bg-hover); }
+.hc-art {
+  width: 56px; height: 56px; border-radius: 8px; flex-shrink: 0;
+  background: linear-gradient(145deg, #1a1a2e, #16213e);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 18px; color: var(--accent);
+}
+.hc-info { flex: 1; min-width: 0; }
+.hc-title { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hc-sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+.hc-progress-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.hc-progress { flex: 1; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.hc-progress-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+.hc-time { font-size: 11px; color: var(--text-dim); flex-shrink: 0; }
+.hc-play-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--text); border: none; color: #000;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
+}
+.hc-play-btn:active { transform: scale(0.9); }
+
+.home-recent-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; cursor: pointer; transition: background 0.15s;
+}
+.home-recent-item:active { background: var(--bg-hover); }
+.hr-art {
+  width: 44px; height: 44px; border-radius: 6px; flex-shrink: 0;
+  background: var(--bg-card); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; color: var(--text-sec);
+}
+.hr-info { flex: 1; min-width: 0; }
+.hr-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hr-meta { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+.home-show-card {
+  margin: 0 16px; padding: 16px; border-radius: 12px;
+  background: var(--bg-raised); display: flex; align-items: center; gap: 14px;
+  cursor: pointer; transition: background 0.15s;
+}
+.home-show-card:active { background: var(--bg-hover); }
+.hs-art {
+  width: 56px; height: 56px; border-radius: 8px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 18px; color: #000;
+}
+.hs-info { flex: 1; }
+.hs-title { font-size: 16px; font-weight: 700; }
+.hs-sub { font-size: 13px; color: var(--text-sec); margin-top: 2px; }
+.hs-count { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+.back-btn {
+  background: none; border: none; color: var(--text-sec);
+  width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; margin-right: 4px;
+}
+
 /* === Header === */
 #header {
   padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 8px;
