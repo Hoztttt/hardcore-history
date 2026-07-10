@@ -1,11 +1,11 @@
-const IA_BASE = 'https://archive.org/download/hardcorehistory_20240414/';
+const IA_BASE = 'https://archive.org/download/hardcore_history_archive/';
 
 const EPISODES = [
   {
     id: 73, number: '73', title: 'Mania for Subjugation III', subtitle: null,
     series: 'Mania for Subjugation',
     description: 'Attacking the largest empire the world had ever seen is a huge endeavor at any age, but try doing it at 21. Alexander aims for immortality.',
-    audioFile: '73 - Mania for Sunjugation III.mp3'
+    audioFile: '73 - Mania for Subjugation III.mp3'
   },
   {
     id: 72, number: '72', title: 'Mania for Subjugation II', subtitle: null,
@@ -161,8 +161,7 @@ const EPISODES = [
     id: 47.5, number: 'EXTRA', title: 'Wrath of the Khans (Extra)', subtitle: 'EXTRA',
     series: 'Wrath of the Khans',
     description: 'In this "Director\'s Cut" style addendum you get cutting-room floor stuff and Dan talking about the challenges this episode posed and why he made Wrath of the Khans the way he did.',
-    audioFile: '47_5_EXTRA_Wrath_of_the_Khans-Hardcore-History-Dan-Carlin.mp3',
-    altBase: 'https://archive.org/download/hardcore-history/Hardcore%20History/'
+    audioFile: '47.5 - Wrath of the Khans [Extra].mp3'
   },
   {
     id: 47, number: '47', title: 'Wrath of the Khans V', subtitle: null,
@@ -198,8 +197,7 @@ const EPISODES = [
     id: 42.5, number: 'EXTRA', title: 'Logical Insanity (Extra)', subtitle: 'EXTRA',
     series: null,
     description: 'In this "Director\'s Cut" style addendum you get cutting-room floor stuff and Dan talking about the challenges this episode posed and why he made Logical Insanity the way he did.',
-    audioFile: '42_5-Extra-Logical-Insanity-Hardcore-History-Dan-Carlin.mp3',
-    altBase: 'https://archive.org/download/hardcore-history/Hardcore%20History/'
+    audioFile: '42.5 - Logical Insanity [Extra].mp3'
   },
   {
     id: 42, number: '42', title: 'Logical Insanity', subtitle: 'BLITZ',
@@ -211,8 +209,7 @@ const EPISODES = [
     id: 41.5, number: 'EXTRA', title: 'Thor\'s Angels (Extra)', subtitle: 'EXTRA',
     series: null,
     description: 'In this "Director\'s Cut" style addendum you get cutting-room floor stuff and Dan talking about the challenges this episode posed and why he made Thor\'s Angels the way he did.',
-    audioFile: '41_5_EXTRA_Thors_Angels-Hardcore-History-Dan-Carlin.mp3',
-    altBase: 'https://archive.org/download/hardcore-history/Hardcore%20History/'
+    audioFile: '41.5 - Thor\'s Angels [Extra].mp3'
   },
   {
     id: 41, number: '41', title: 'Thor\'s Angels', subtitle: null,
@@ -463,6 +460,5 @@ const EPISODES = [
 ];
 
 function getAudioUrl(episode) {
-  const base = episode.altBase || IA_BASE;
-  return base + encodeURIComponent(episode.audioFile);
+  return IA_BASE + encodeURIComponent(episode.audioFile);
 }

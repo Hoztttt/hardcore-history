@@ -16,6 +16,7 @@ let currentView = 'home'; // 'home' or 'show'
 
 const SPEEDS = [1, 1.25, 1.5, 1.75, 2];
 const SAVE_INTERVAL = 5000;
+const DURATION_CACHE_VERSION = 3; // Bump this to force re-fetch all durations
 
 const SERIES_LIST = [
   { name: 'Mania for Subjugation', cssClass: 'series-mania' },
@@ -182,6 +183,14 @@ function loadProgress() {
 }
 
 function loadDurations() {
+  const savedVersion = parseInt(localStorage.getItem('hh_dur_version') || '0');
+  if (savedVersion < DURATION_CACHE_VERSION) {
+    // Source changed - clear cached durations so they re-fetch from the correct files
+    durations = {};
+    localStorage.removeItem('hh_durations');
+    localStorage.setItem('hh_dur_version', String(DURATION_CACHE_VERSION));
+    return;
+  }
   try { durations = JSON.parse(localStorage.getItem('hh_durations') || '{}'); } catch { durations = {}; }
 }
 
